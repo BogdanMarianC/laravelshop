@@ -32,7 +32,7 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
-                    <td>{{ $product->photo }}</td>
+                    <td><img src="{{ url('/') }}/images/{{ $product->photo }}"></td>
                     <td>{{ $product->price }}</td>
                     <td>
                         <form action="{{ route('products.destroy',$product->id) }}" method="POST">

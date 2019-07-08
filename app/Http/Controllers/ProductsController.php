@@ -137,7 +137,10 @@ class ProductsController extends Controller
      */
     public function create()
     {
-
+        $cart = session()->get('cart');
+        if(!isset($cart)){
+            session()->put('cart', array());
+        }
         return view('products.create');
     }
 
@@ -152,10 +155,25 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'description' => 'required',
-            'photo' => 'required',
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
         ]);
-        Product::create($request->all());
+
+        $product = new Product();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = time().'.'.request()->photo->getClientOriginalExtension();
+            request()->photo->move(public_path('images'), $imageName);
+            $product->photo = $imageName;
+        }
+        $product->name = $request->get('name');
+        $product->description = $request->get('description');
+        $product->price = $request->get('price');
+
+        $product->save();
+
+
+
         return redirect()->route('products.index')->with('success','Product added successfully.');
     }
 
