@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/products/listProducts', 'ProductsController@listProducts');
+
+Route::get('cart', 'ProductsController@cart');
+
+Route::get('add-to-cart/{id}', 'ProductsController@addToCart');
