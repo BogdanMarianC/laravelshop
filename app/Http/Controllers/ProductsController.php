@@ -14,7 +14,8 @@ class ProductsController extends Controller
 
     public function index()
     {
-       // return view('products.products');
+        $products = Product::latest()->paginate(5);
+        return view('products.index',compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 
@@ -136,7 +137,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('products.create');
     }
 
     /**
@@ -147,7 +149,14 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+            'description' => 'required',
+            'photo' => 'required',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        ]);
+        Product::create($request->all());
+        return redirect()->route('products.index')->with('success','Product added successfully.');
     }
 
     /**
@@ -156,10 +165,11 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('products.show',compact('product',$product));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -167,9 +177,10 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+
+        return view('products.edit',compact('product',$product));
     }
 
     /**
@@ -179,9 +190,20 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Product $product)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:3',
+            'author' => 'required',
+            'publisher' => 'required',
+            'type' => 'required|in:textbook,dictionary,encyclopedia',
+            'year' => 'required|integer',
+            'pages' => 'required|integer|min:10|max:1000',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        ]);
+        $product->update($request->all());
+        return redirect()->route('products.index')->with('success','Product updated successfully.');
+
     }
 
     /**
@@ -190,8 +212,10 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Product $product)
     {
-        //
+        $product->delete();
+        $request->session()->flash('message', 'Successfully deleted the product!');
+        return redirect('products');
     }
 }
