@@ -8,53 +8,19 @@
 
         <div class="row">
 
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/500x300" alt="">
-                    <div class="caption">
-                        <h4>Product name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                        <p><strong>Price: </strong> 567.7$</p>
-                        <p class="btn-holder"><a href="#" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+            @foreach($products as $product)
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="{{ $product->photo }}" width="500" height="300">
+                        <div class="caption">
+                            <h4>{{ $product->name }}</h4>
+                            <p>{{ str_limit(strtolower($product->description), 50) }}</p>
+                            <p><strong>Price: </strong> {{ $product->price }}$</p>
+                            <p class="btn-holder"><a href="{{ url('add-to-cart/'.$product->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/500x300" alt="">
-                    <div class="caption">
-                        <h4>Product name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                        <p><strong>Price: </strong> 567.7$</p>
-                        <p class="btn-holder"><a href="#" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/500x300" alt="">
-                    <div class="caption">
-                        <h4>Product name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                        <p><strong>Price: </strong> 567.7$</p>
-                        <p class="btn-holder"><a href="#" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/500x300" alt="">
-                    <div class="caption">
-                        <h4>Product name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscipit</p>
-                        <p><strong>Price: </strong> 567.7$</p>
-                        <p class="btn-holder"><a href="#" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div><!-- End row -->
 

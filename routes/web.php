@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/products/listProducts', 'ProductsController@listProducts');
-
 Route::get('cart', 'ProductsController@cart');
-
 Route::get('add-to-cart/{id}', 'ProductsController@addToCart');
+Route::patch('update-cart', 'ProductsController@updateCart');
+Route::delete('remove-from-cart', 'ProductsController@removeCart');
