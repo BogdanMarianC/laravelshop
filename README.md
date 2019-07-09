@@ -31,6 +31,7 @@ php artisan config:clear
 
 11.
 http://localhost/shoplaravel/public/
+
 http://localhost/shoplaravel/public/products/listProducts
 
 
