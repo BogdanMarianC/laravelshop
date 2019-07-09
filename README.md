@@ -2,38 +2,47 @@
 1. mkdir shoplaravel
 2. sudo chmod 644 -R shoplaravel
 3. cd shoplaravel
-4. Download the master branch  
+4. Download the master branch
+```
 git clone https://github.com/aadiaconitei/laravelshop.git .
+```
 5. Make sure you have a database :laravel_shop
-6. Make a copy .env.example and rename to .env and edit lines 12,13,14
+6. Make a copy .env.example and rename to .env and edit lines 12,13,14:
+```
 DB_DATABASE=homestead
 DB_USERNAME=homestead
 DB_PASSWORD=secret
-
+```
 7. Install the composer dependencies
+```
 composer install
+```
 or
+```
 php /usr/local/bin/composer.phar
-
-8.Run the migrations and seeds
+```
+8. Run the migrations and seeds
+```
 php artisan migrate --seed
-
+```
 9.
+```
 chmod -R 755 storage
 chmod -R 755 bootstrap/cache
-
+```
 10. Generating the key
+```
 php artisan key:generate
-
+```
 [Optional:]
 php artisan cache:clear 
 php artisan config:clear
 
 11.
+```
 http://localhost/shoplaravel/public/
-
 http://localhost/shoplaravel/public/products/listProducts
-
+```
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
