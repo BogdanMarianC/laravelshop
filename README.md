@@ -30,7 +30,8 @@ php artisan cache:clear
 php artisan config:clear
 
 11.
-http://localhost/shoplaravel/public/pwd
+http://localhost/shoplaravel/public/
+http://localhost/shoplaravel/public/products/listProducts
 
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
