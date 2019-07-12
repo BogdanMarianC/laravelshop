@@ -1,19 +1,19 @@
 ## Install
-Step 1. mkdir shoplaravel
-Step 2. sudo chmod 644 -R shoplaravel
-Step 3. cd shoplaravel
-Step 4. Download the master branch
+ - Step 1. mkdir shoplaravel
+ - Step 2. sudo chmod 644 -R shoplaravel
+ - Step 3. cd shoplaravel
+ - Step 4. Download the master branch
 ```
 git clone https://github.com/aadiaconitei/laravelshop.git .
 ```
-Step 5.  Make sure you have a database :laravel_shop
-Step 6. Make a copy .env.example and rename to .env and edit lines 12,13,14:
+ - Step 5.  Make sure you have a database :laravel_shop
+ - Step 6. Make a copy .env.example and rename to .env and edit lines 12,13,14:
 ```
 DB_DATABASE=homestead
 DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
-Step 7. Install the composer dependencies
+ - Step 7. Install the composer dependencies
 ```
 composer install
 ```
@@ -21,16 +21,16 @@ or
 ```
 php /usr/local/bin/composer.phar
 ```
-Step 8. Run the migrations and seeds
+ - Step 8. Run the migrations and seeds
 ```
 php artisan migrate --seed
 ```
-Step 9.
+ - Step 9.
 ```
 chmod -R 755 storage
 chmod -R 755 bootstrap/cache
 ```
-Step 10. Generating the key
+ - Step 10. Generating the key
 ```
 php artisan key:generate
 ```
@@ -38,7 +38,7 @@ php artisan key:generate
 php artisan cache:clear 
 php artisan config:clear
 
-Step 11.
+ - Step 11.
 ```
 http://localhost/shoplaravel/public/
 http://localhost/shoplaravel/public/products/listProducts
@@ -56,22 +56,22 @@ php artisan route:list
 ```
 
 ##REST api
-Step 1. I created new folder “API” in App\Http\Controllers folder 
+ - Step 1. I created new folder “API” in App\Http\Controllers folder 
 ```
 mkdir app/API
 
 ```
-Step 2. Create new controller as APIBaseController and ProductAPIController, APIBaseController extend all api controller
+ - Step 2. Create new controller as APIBaseController and ProductAPIController, APIBaseController extend all api controller
 (not include the create or edit methods)
 ```
  php artisan make:controller API/ProductAPIController --api
  php artisan make:controller API/APIBaseController --api 
 ```
-Step 3. create resource routes for list, create, update and delete. so we open your routes/api.php file and put the code following api.php: routes/api.php
+ - Step 3. create resource routes for list, create, update and delete. so we open your routes/api.php file and put the code following api.php: routes/api.php
 ```
 Route::resource('apiproducts', 'API\ProductAPIController');
 ```
-Step 4. Postman requests
+ - Step 4. Postman requests
 
 List: GET, URL:http://localhost/laravelshop/public/api/apiproducts
 
