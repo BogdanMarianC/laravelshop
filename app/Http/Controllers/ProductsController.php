@@ -14,6 +14,7 @@ class ProductsController extends Controller
      */
     public  function __construct()
     {
+        //$this->middleware('auth');
         $cart = session()->get('cart');
         if(!isset($cart)){
             session()->put('cart', array());

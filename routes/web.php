@@ -50,4 +50,3 @@ Route::delete('remove-from-cart', 'ProductsController@removeCart');
 
 Route::resource('products', 'ProductsController');
 
-
