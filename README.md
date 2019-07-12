@@ -1,7 +1,16 @@
 ## Install
- - Step 1. mkdir shoplaravel
- - Step 2. sudo chmod 644 -R shoplaravel
- - Step 3. cd shoplaravel
+ - Step 1. 
+ ```
+ mkdir shoplaravel
+ ```
+ - Step 2. 
+ ```
+ sudo chmod 644 -R shoplaravel
+ ```
+ - Step 3. 
+ ```
+ cd shoplaravel
+ ```
  - Step 4. Download the master branch
 ```
 git clone https://github.com/aadiaconitei/laravelshop.git .
@@ -67,7 +76,7 @@ mkdir app/API
  php artisan make:controller API/ProductAPIController --api
  php artisan make:controller API/APIBaseController --api 
 ```
- - Step 3. create resource routes for list, create, update and delete. so we open your routes/api.php file and put the code following api.php: routes/api.php
+ - Step 3. Create resource routes for list, create, update and delete. so we open your routes/api.php file and put the code following api.php: routes/api.php
 ```
 Route::resource('apiproducts', 'API\ProductAPIController');
 ```
