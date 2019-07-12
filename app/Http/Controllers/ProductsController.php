@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
+use File;
 
 class ProductsController extends Controller
 {
@@ -11,6 +12,13 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public  function __construct()
+    {
+        $cart = session()->get('cart');
+        if(!isset($cart)){
+            session()->put('cart', array());
+        }
+    }
 
     public function index()
     {
@@ -161,7 +169,7 @@ class ProductsController extends Controller
 
         $product = new Product();
         if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
+            //$image = $request->file('photo');
             $imageName = time().'.'.request()->photo->getClientOriginalExtension();
             request()->photo->move(public_path('images'), $imageName);
             $product->photo = $imageName;
@@ -208,18 +216,32 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Product $product)
+    public function update(Request $request,$id)
     {
+        $product=Product::findOrFail($id);
         $request->validate([
-            'title' => 'required|min:3',
-            'author' => 'required',
-            'publisher' => 'required',
-            'type' => 'required|in:textbook,dictionary,encyclopedia',
-            'year' => 'required|integer',
-            'pages' => 'required|integer|min:10|max:1000',
+            'name' => 'required|min:3',
+            'description' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
         ]);
         $product->update($request->all());
+        if ($request->hasFile('photo'))
+        {
+
+            $productImage = public_path("/images/{$product->photo}"); // get previous image from folder
+            if (File::exists($productImage)) { // unlink or remove previous image from folder
+                unlink($productImage);
+            }
+
+
+            $file = $request->file('photo');
+            $imageName = time().'.'.request()->photo->getClientOriginalExtension();
+
+            $product->photo = $imageName;
+            $file->move(public_path('images'), $imageName);
+            $product->save();
+        }
         return redirect()->route('products.index')->with('success','Product updated successfully.');
 
     }
