@@ -37,10 +37,7 @@ class ProductsController extends Controller
 
     public function index()
     {
-        if(Auth::user())
-        {
-           echo Auth::user()->name ;// do what you need to do
-        }
+
         $products = Product::latest()->paginate(5);
         return view('products.index',compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
