@@ -38,15 +38,22 @@ class ProductAPIController extends APIBaseController
             'description' => 'required',
             'price' => 'required',
         ]);
-//        $file = $request->file('image');
-//        if(!empty($file)) {
-//            $imageName = time().'.'.$file->getClientOriginalName();
-//            $file->move(public_path('images'), $imageName);
-//        }
+        $file = $request->file('photo');
+
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
+
+
         $product = Product::create($input);
+        if(!empty($file)) {
+            $imageName = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $data['photo'] = $imageName;
+            $product->update($data);
+        }
+
+
         return $this->sendResponse($product->toArray(), 'Product created successfully.');
     }
 
