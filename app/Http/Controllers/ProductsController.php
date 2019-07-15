@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -14,7 +15,20 @@ class ProductsController extends Controller
      */
     public  function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
+
+
+
+        /*
+         * $this->middleware('auth');  //toate metodele pot fi accesate doar logat
+
+         */
+         /*
+         * $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'delete']]);//lista de metode ce pot fi accesate doar logat
+         */
+         /*
+          * $this->middleware('auth', ['except' => ['cart', 'listProducts']]); //lista de metode ce pot fi accesate nelogat
+          */
         $cart = session()->get('cart');
         if(!isset($cart)){
             session()->put('cart', array());
@@ -23,6 +37,10 @@ class ProductsController extends Controller
 
     public function index()
     {
+        if(Auth::user())
+        {
+           echo Auth::user()->name ;// do what you need to do
+        }
         $products = Product::latest()->paginate(5);
         return view('products.index',compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
     }

@@ -16,7 +16,9 @@
             {{ $message }}
         </div>
     @endif
-
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
     @if(sizeof($products) > 0)
         <table class="table table-bordered">
             <tr>
@@ -32,7 +34,7 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
-                    <td><img src="{{ url('/') }}/images/{{ $product->photo }}"></td>
+                    <td><img src="{{ url('/') }}/images/{{ $product->photo }}" style="max-width: 200px;"></td>
                     <td>{{ $product->price }}</td>
                     <td>
                         <form action="{{ route('products.destroy',$product->id) }}" method="POST">

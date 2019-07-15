@@ -3,7 +3,11 @@
 @section('title', 'Products')
 
 @section('content')
-
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endif
     <div class="container products">
 
         <div class="row">
