@@ -31,29 +31,48 @@ class ProductAPIController extends APIBaseController
      */
     public function store(Request $request)
     {
-        //
-        $input = $request->all();
-        $validator = Validator::make($input, [
+        //metoda 1
+//        $input = $request->all();
+//        $validator = Validator::make($input, [
+//            'name' => 'required',
+//            'description' => 'required',
+//            'price' => 'required',
+//        ]);
+//        $file = $request->file('photo');
+//
+//        if($validator->fails()){
+//            return $this->sendError('Validation Error.', $validator->errors());
+//        }
+//
+//
+//        $product = Product::create($input);
+//        if(!empty($file)) {
+//            $imageName = time().'.'.$file->getClientOriginalExtension();
+//            $file->move(public_path('images'), $imageName);
+//            $data['photo'] = $imageName;
+//            $product->update($data);
+//        }
+
+        //metoda 2
+        request()->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
         ]);
         $file = $request->file('photo');
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-
-        $product = Product::create($input);
         if(!empty($file)) {
             $imageName = time().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('images'), $imageName);
-            $data['photo'] = $imageName;
-            $product->update($data);
         }
 
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
 
+        $product->photo = $imageName;
+        $product->save();
         return $this->sendResponse($product->toArray(), 'Product created successfully.');
     }
 
