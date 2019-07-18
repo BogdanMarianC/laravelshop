@@ -1,3 +1,12 @@
+##Install composer (for dependency management)
+```
+curl -sS https://getcomposer.org/installer | php
+```
+```
+ sudo mv composer.phar /usr/local/bin/composer
+``` 
+ 
+
 ## Install
  - Step 1. 
  ```
@@ -34,6 +43,13 @@ php /usr/local/bin/composer.phar
 ```
 php artisan migrate --seed
 ```
+or
+```
+php artisan migrate
+php artisan db:seed
+```
+
+The db:seed command will seed admin and settings table. If you want to pre-generate some mock data, run again with option --class=ProductsSeeder
  - Step 9.
 ```
 chmod -R 755 storage
